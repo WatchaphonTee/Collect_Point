@@ -1,0 +1,27 @@
+import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
+import Login from './components/Page/Login';
+import Dashboard from './components/Page/Dashboard';
+import Addstaff from './components/Page/Addstaff';
+import Addmember from './components/Page/Addmember';
+import Addmenu from './components/Page/Addmenu';
+import Check from './components/Page/Check';
+function App() {
+  return (
+    <Router>
+      <Routes>
+
+        <Route path='/login' element={<Login/>} />
+        <Route path='/' element={<Dashboard/>} />
+        <Route path='/member' element={<Dashboard/>} />
+        <Route path='/staff' element={<Dashboard/>} />
+        <Route path='/shop' element={<Dashboard/>} />
+        <Route path='check' element={<Check/>} />
+        <Route path='/addmember' element={<Addmember/>} />
+        <Route path='/addstaff' element={<Addstaff/>} />
+        <Route path='/addmenu' element={<Addmenu/>} />
+      </Routes>
+    </Router>
+  )
+}
+
+export default App

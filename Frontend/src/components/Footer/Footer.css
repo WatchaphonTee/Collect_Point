@@ -1,0 +1,15 @@
+/* Footer.css */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: calc(100% ); /* ปรับขนาดให้เต็มพื้นที่ที่เหลือจาก Sidebar */
+    background-color: #e0e0e0d3;
+    color: rgb(6, 6, 6);
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .footer-text {
+    font-size: 1.2rem;
+    margin: 0;
+  }
