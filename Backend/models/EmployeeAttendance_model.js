@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db_instance");
-
+const User = require("./SystemUser_model")
 const Attendance = sequelize.define("attendance",{
     id:{
         type:Sequelize.INTEGER,
@@ -17,12 +17,21 @@ const Attendance = sequelize.define("attendance",{
         }
     },
     checkin:{
-        type:Sequelize.DATE,
-        allowNull:false,
+        type: Sequelize.DATE,
+        defaultValue: new Date().toISOString(),
+        allowNull: false,
     },
-    checkout:{
-        type:Sequelize.DATE,
-        allowNull:false,
+    date: {
+        type: Sequelize.DATEONLY,
+        defaultValue: new Date().toISOString().split('T')[0],
+        allowNull: false,
     },
     
-})
+},{
+    timestamps:false
+});
+(async()=>{
+    await Attendance.sycn({force:false});
+})();
+
+module.exports = Attendance;

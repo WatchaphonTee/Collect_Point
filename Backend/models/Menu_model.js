@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db_instance");
-const { timeStamp } = require("console");
+
 
 const Menu = sequelize.define("menu",{
     id:{
@@ -19,6 +19,10 @@ const Menu = sequelize.define("menu",{
     },
     type:{
         type: Sequelize.STRING,
+        allowNull:false,
+    },
+    filename:{
+        type:Sequelize.STRING,
         allowNull:false,
     },
     pointvalue:{

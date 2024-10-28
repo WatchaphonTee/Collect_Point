@@ -2,7 +2,6 @@ const Sequelize = require("sequelize");
 const sequelize = require("../db_instance");
 const Position = require("./EmployeePosition_model")
 
-
 const User = sequelize.define("user",{
     id:{
         type: Sequelize.INTEGER,
@@ -24,7 +23,7 @@ const User = sequelize.define("user",{
         allowNull:false,
     },
     phonenumber:{
-        type:Sequelize.INTEGER,
+        type:Sequelize.STRING,
         allowNull:false,
     },
     email:{

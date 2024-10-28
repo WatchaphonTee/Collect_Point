@@ -20,7 +20,7 @@ const Position = sequelize.define("position",{
 });
 
 (async ()=>{
-    await Position.sync({force:flase});
+    await Position.sync({force:false});
 })();
 
 module.exports= Position;
