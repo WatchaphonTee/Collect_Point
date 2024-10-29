@@ -40,7 +40,7 @@ const Addmember = () => {
                 age: customerData.age,
                 email: customerData.email,
             });
-        if(response.status === 200){
+        if(response.status === 201){
             setMessage("สมัครสมาชิกสำเร็จ");
             setCustomerData({
                 firstname:'',
@@ -51,7 +51,7 @@ const Addmember = () => {
                 email:'',
             });
         }else{
-            setMessage(`ไม่สำเร็จ: ${response.data.message}`);
+            setMessage(`${response.data.message}`);
         } 
     }
         catch(error){

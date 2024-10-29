@@ -9,8 +9,8 @@ const User = sequelize.define("user",{
         autoIncrement:true,
         allowNull:false,
     },
-    idnumber:{
-        type: Sequelize.INTEGER,
+    idcard:{
+        type: Sequelize.STRING,
         unique:true,
         allowNull:false,
     },
@@ -54,7 +54,7 @@ const User = sequelize.define("user",{
 });
 
 (async () =>{
-    await User.sync({force:flase});
+    await User.sync({ force: true }); 
 })();
 
 module.exports = User;

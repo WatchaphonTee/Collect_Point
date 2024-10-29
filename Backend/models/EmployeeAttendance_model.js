@@ -31,7 +31,7 @@ const Attendance = sequelize.define("attendance",{
     timestamps:false
 });
 (async()=>{
-    await Attendance.sycn({force:false});
+    await Attendance.sync({force:false});
 })();
 
 module.exports = Attendance;

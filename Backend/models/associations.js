@@ -11,5 +11,5 @@ const User = require("./SystemUser_model");
 })();
 
 module.exports={Membership,Orderdetail,Orderinvoice,
-    Attendance,Position,Meni,User
+    Attendance,Position,Menu,User
 }
