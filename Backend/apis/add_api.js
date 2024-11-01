@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const {Membership,User,Position} = require('../models/associations');
+const multer = require('multer');
+const path = require('path');
+const {Membership,User,Position,Menu} = require('../models/associations');
 
-// API สำหรับเพิ่มข้อมูลสมาชิก
+//เพิ่มสมาชิก
 router.post('/addmember', async (req, res) => {
     try {
         const { firstname, lastname,idcard, phonenumber, age, email, totalpoint } = req.body;
@@ -25,6 +27,7 @@ router.post('/addmember', async (req, res) => {
     }
 });
 
+//เพิ่ม Staff
 router.post('/adduser',async(req,res)=>{
     try{
         const {idcard,firstname,lastname,phonenumber,email,address,bankid,position_id} = req.body;
@@ -45,6 +48,36 @@ router.post('/adduser',async(req,res)=>{
     }
 })
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        // กำหนดเส้นทางไปยังโฟลเดอร์ uploads/images
+        cb(null, path.join(__dirname, '../uploads/images/')); // ใช้ __dirname เพื่อระบุโฟลเดอร์ปัจจุบัน
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname); // ใช้ชื่อไฟล์เดิม
+    }
+});
+
+const upload = multer({ storage });
+
+router.post('/addmenu', upload.single('filename'), async (req, res) => {
+    try {
+        const { name, price, type, pointvalue } = req.body;
+        const newMenu = await Menu.create({
+            name,
+            price,
+            type,
+            pointvalue,
+            filename: req.file.filename // ชื่อไฟล์ที่ถูกอัปโหลด
+        });
+
+        res.status(201).json({ message: 'Menu added successfully', newMenu });
+    } catch (error) {
+        res.status(500).json({ message: 'Error creating menu', error });
+    }
+});
+
+//ดึงข้อมูล ตำแหน่งไปใช้
 router.get('/position',async(req,res)=>{
     try{
         const positions = await Position.findAll();

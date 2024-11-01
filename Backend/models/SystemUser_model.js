@@ -23,7 +23,7 @@ const User = sequelize.define("user",{
         allowNull:false,
     },
     phonenumber:{
-        type:Sequelize.STRING,
+        type:Sequelize.INTEGER,
         allowNull:false,
     },
     email:{
@@ -47,14 +47,14 @@ const User = sequelize.define("user",{
         defaultValue: "กรุงไทย",
     },
     bankid:{
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         unique:true,
         allowNull:false,
     }
 });
 
 (async () =>{
-    await User.sync({ force: true }); 
+    await User.sync({ force: false }); 
 })();
 
 module.exports = User;

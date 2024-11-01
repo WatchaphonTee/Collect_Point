@@ -6,6 +6,8 @@ const Position = require("./EmployeePosition_model");
 const Menu = require("./Menu_model");
 const User = require("./SystemUser_model");
 
+
+
 (async () =>{
     await Menu.sync({force:false});
 })();

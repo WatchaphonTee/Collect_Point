@@ -11,6 +11,7 @@ const Menu = sequelize.define("menu",{
     },
     name:{
         type: Sequelize.STRING,
+        unique:true,
         allowNull:false,
     },
     price:{

@@ -114,6 +114,7 @@
                             </div>
                             <button type="submit" className="submit-button">เพิ่มพนักงาน</button>
                         </form>
+                        {message && <p className="message">{message}</p>}
                     </div>
                 </div>
                 <Footer />
