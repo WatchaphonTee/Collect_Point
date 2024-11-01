@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar.jsx';
+import axios from 'axios';
 import '../Sidebar/Sidebar.css';
 import './Add.css';
 import Footer from '../Footer/Footer.jsx';
 
 const Addmember = () => {
     const [customerData, setCustomerData] = useState({
-        custFname: '',      // ชื่อสมาชิกลูกค้า
-        custLname: '',      // นามสกุลสมาชิกลูกค้า
-        custPhonenum: '',   // หมายเลขโทรศัพท์
-        custAge: '',        // อายุ
-        custEmail: ''       // อีเมล
+        firstname: '',      
+        lastname: '',      
+        idcard:'',
+        phonenumber: '',   
+        age: '',        
+        email: ''       
     });
+
+    const [message,setMessage]= useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,10 +25,38 @@ const Addmember = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) =>{
         e.preventDefault();
-        // Handle form submission here
-        console.log(customerData);
+        if (!customerData.firstname || !customerData.lastname || !customerData.idcard || !customerData.phonenumber || !customerData.age || !customerData.email) {
+            error("กรุณากรอกข้อมูลให้ครบถ้วน");
+            return;
+          }
+        try{
+            const response = await axios.post('http://localhost:8000/add/addmember',{
+                firstname: customerData.firstname,
+                lastname: customerData.lastname,
+                idcard: customerData.idcard,
+                phonenumber: customerData.phonenumber,
+                age: customerData.age,
+                email: customerData.email,
+            });
+        if(response.status === 201){
+            setMessage("สมัครสมาชิกสำเร็จ");
+            setCustomerData({
+                firstname:'',
+                lastname:'',
+                idcard:'',
+                phonenumber:'',
+                age:'',
+                email:'',
+            });
+        }else{
+            setMessage(`${response.data.message}`);
+        } 
+    }
+        catch(error){
+            setMessage(`เกิดข้อผิดพลาด: ${error.response?.data?.message || error.message}`);
+        }
     };
 
     return (
@@ -36,33 +68,38 @@ const Addmember = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="form-row">
                             <div className="form-group">
-                                <label>ชื่อสมาชิกลูกค้า (cust_fname):</label>
-                                <input type="text" name="custFname" value={customerData.custFname} onChange={handleChange} required />
+                                <label>ชื่อสมาชิกลูกค้า :</label>
+                                <input type="text" name="firstname" value={customerData.firstname} onChange={handleChange} required />
                             </div>
                             <div className="form-group">
-                                <label>นามสกุลสมาชิกลูกค้า (cust_lname):</label>
-                                <input type="text" name="custLname" value={customerData.custLname} onChange={handleChange} required />
+                                <label>นามสกุลสมาชิกลูกค้า:</label>
+                                <input type="text" name="lastname" value={customerData.lastname} onChange={handleChange} required />
                             </div>
                         </div>
                         <div className="form-row">
-                            <div className="form-group">
-                                <label>หมายเลขโทรศัพท์สมาชิกลูกค้า (cust_phonenum):</label>
-                                <input type="text" name="custPhonenum" value={customerData.custPhonenum} onChange={handleChange} required maxLength="15" />
+                        <div className="form-group">
+                                <label>หมายเลขบัตรประชาชน:</label>
+                                <input type="text" name="idcard" value={customerData.idcard} onChange={handleChange} required maxLength="13" />
                             </div>
                             <div className="form-group">
-                                <label>อายุสมาชิกลูกค้า (cust_age):</label>
-                                <input type="number" name="custAge" value={customerData.custAge} onChange={handleChange} required />
+                                <label>หมายเลขโทรศัพท์สมาชิกลูกค้า:</label>
+                                <input type="text" name="phonenumber" value={customerData.phonenumber} onChange={handleChange} required maxLength="15" />
+                            </div>
+                            <div className="form-group">
+                                <label>อายุสมาชิกลูกค้า :</label>
+                                <input type="number" name="age" value={customerData.age} onChange={handleChange} required />
                             </div>
                         </div>
                         <div className="form-row">
                         
                             <div className="form-group">
-                                <label>อีเมลสมาชิกลูกค้า (cust_email):</label>
-                                <input type="email" name="custEmail" value={customerData.custEmail} onChange={handleChange} required />
+                                <label>อีเมลสมาชิกลูกค้า:</label>
+                                <input type="email" name="email" value={customerData.email} onChange={handleChange} required />
                             </div>
                         </div>
                         <button type="submit" className="submit-button">เพิ่มสมาชิก</button>
                     </form>
+                    {message && <p className="message">{message}</p>}
                 </div>
             </div>
             <Footer />

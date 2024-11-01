@@ -1,9 +1,9 @@
-const Sequelize = require("sequelize");
+const Sequelize = require("sequelize")
 const sequelize = new Sequelize({
-    dialect: "sqlite", //type
-    storage: "./database.db" //path file
+    dialect: "sqlite",
+    storage: "./collect.db"
 });
-(async ()=>{
+(async () =>{
     await sequelize.authenticate();
 })();
 

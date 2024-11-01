@@ -8,6 +8,11 @@ const Membership = sequelize.define("membership",{
         autoIncrement:true,
         allowNull:false,
     },
+    idcard:{
+        type:Sequelize.INTEGER,
+        unique:true,
+        allowNull:false,
+    },
     firstname:{
         type:Sequelize.STRING,
         allowNull:false,
@@ -17,7 +22,7 @@ const Membership = sequelize.define("membership",{
         allowNull:false,
     },
     phonenumber:{
-        type:Sequelize.INTEGER,
+        type:Sequelize.STRING,
         allowNull:false,
     },
     age:{
@@ -29,8 +34,9 @@ const Membership = sequelize.define("membership",{
         allowNull:false,
     },
     totalpoint:{
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         defaultValue : 0,
+        allowNull:false,
     }
 }); 
 

@@ -2,7 +2,6 @@ const Sequelize = require("sequelize");
 const sequelize = require("../db_instance");
 const Position = require("./EmployeePosition_model")
 
-
 const User = sequelize.define("user",{
     id:{
         type: Sequelize.INTEGER,
@@ -10,8 +9,8 @@ const User = sequelize.define("user",{
         autoIncrement:true,
         allowNull:false,
     },
-    idnumber:{
-        type: Sequelize.INTEGER,
+    idcard:{
+        type: Sequelize.STRING,
         unique:true,
         allowNull:false,
     },
@@ -48,14 +47,14 @@ const User = sequelize.define("user",{
         defaultValue: "กรุงไทย",
     },
     bankid:{
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         unique:true,
         allowNull:false,
     }
 });
 
 (async () =>{
-    await User.sync({force:flase});
+    await User.sync({ force: false }); 
 })();
 
 module.exports = User;
