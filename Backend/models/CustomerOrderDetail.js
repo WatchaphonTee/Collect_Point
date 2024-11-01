@@ -20,6 +20,10 @@ const Orderdetail = sequelize.define("orderdetail",{
     total_point:{
         type:Sequelize.FLOAT,
         allowNull:false,
+    },
+    order_count: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0 // กำหนดค่าเริ่มต้น
     }
 },{
     timestamps:false

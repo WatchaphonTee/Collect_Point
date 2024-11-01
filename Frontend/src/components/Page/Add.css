@@ -1,3 +1,4 @@
+/**/
 .add-staff-form {
     max-width: 600px;
     margin: 20px auto;
@@ -51,3 +52,61 @@ h2 {
 .submit-button:hover {
     background-color: #218838;
 }
+
+
+/*หน้าเมนู*/
+
+.shop-container {
+    display: flex; /* ใช้ flexbox เพื่อจัดระเบียบ layout */
+  }
+  
+  .main-content {
+    width: 80%; /* เนื้อหาหลักจะอยู่ทางซ้ายมือและกว้าง 80% */
+    padding: 20px;
+    margin-right: 20px; /* เพิ่มระยะห่างระหว่างเมนูกับ Cart */
+  }
+  
+  .menu-nav {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .menu-display {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 20%;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .menu-item {
+    width: 200px; /* ขนาดแต่ละเมนู */
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+  
+  .menu-item img {
+    width: 150px; /* ความกว้างรูป */
+    height: 150px; /* ความสูงรูป */
+    object-fit: cover; /* ปรับรูปให้อยู่ในขอบเขตขนาดที่กำหนด */
+    border-radius: 5px;
+  }
+  
+  /* CSS สำหรับ Cart */
+  .cart {
+    width: 20%; /* กำหนดความกว้าง 20% */
+    padding: 20px;
+    border-left: 1px solid #ddd; /* ขอบซ้ายเพื่อแยก Cart ออกจากเนื้อหา */
+    background-color: #f9f9f9; /* สีพื้นหลังให้ Cart */
+    position: fixed; /* ทำให้ Cart อยู่ในตำแหน่งคงที่ */
+    right: 0; /* จัดให้อยู่ด้านขวา */
+    top: 0; /* เริ่มต้นที่ด้านบน */
+    height: 100%; /* ขยายสูงเต็มหน้าจอ */
+    overflow-y: auto; /* ให้ scroll ได้ถ้ารายการในตะกร้ามากเกินไป */
+  }
+  
