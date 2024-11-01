@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const path = require('path');
 
 app.use(cors());
 
@@ -10,6 +11,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use("/add",require("./apis/add_api"));
 app.use("/check",require("./apis/check_api"));
+app.use("/shop",require("./apis/shop_api"));
+app.use('/images', express.static(path.join(__dirname, 'uploads', 'images')));
+
 //server runs on port 8000
 app.listen(8000,() => {
     console.log("Backend is running...");
