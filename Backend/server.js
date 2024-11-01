@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use("/add",require("./apis/add_api"));
 app.use("/check",require("./apis/check_api"));
 app.use("/shop",require("./apis/shop_api"));
+app.use("/order",require("./apis/order_api"));
 app.use('/images', express.static(path.join(__dirname, 'uploads', 'images')));
 
 //server runs on port 8000
