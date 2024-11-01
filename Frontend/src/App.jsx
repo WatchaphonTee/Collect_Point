@@ -5,6 +5,7 @@ import Addstaff from './components/Page/Addstaff';
 import Addmember from './components/Page/Addmember';
 import Addmenu from './components/Page/Addmenu';
 import Check from './components/Page/Check';
+import Shop from './components/Page/Shop';
 function App() {
   return (
     <Router>
@@ -14,7 +15,7 @@ function App() {
         <Route path='/' element={<Dashboard/>} />
         <Route path='/member' element={<Dashboard/>} />
         <Route path='/staff' element={<Dashboard/>} />
-        <Route path='/shop' element={<Dashboard/>} />
+        <Route path='/shop' element={<Shop/>} />
         <Route path='check' element={<Check/>} />
         <Route path='/addmember' element={<Addmember/>} />
         <Route path='/addstaff' element={<Addstaff/>} />
