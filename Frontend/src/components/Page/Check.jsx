@@ -1,8 +1,9 @@
-import React, { useState } from 'react'; // นำเข้า useState
+import React, { useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar.jsx';
 import axios from 'axios';
 import '../Sidebar/Sidebar.css';
 import Footer from '../Footer/Footer.jsx';
+import './Check.css'; // Import CSS for Check component
 
 const Check = () => {
   const [userId, setUserId] = useState({
@@ -13,7 +14,7 @@ const Check = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserId({ // เปลี่ยนเป็น setUserId
+    setUserId({
       ...userId,
       [name]: value,
     });
@@ -26,11 +27,11 @@ const Check = () => {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:8000/check/checkin', { // แก้ URL ให้ถูกต้อง
+      const response = await axios.post('http://localhost:8000/attendance/checkin', {
         user_id: userId.user_id,
       });
       if (response.status === 201) {
-        setMessage("เช็คอินสำเร็จ"); // เปลี่ยนข้อความให้ตรงตามการทำงาน
+        setMessage("เช็คอินสำเร็จ");
         setUserId({
           user_id: '',
         });
@@ -45,23 +46,25 @@ const Check = () => {
   return (
     <div>
       <Sidebar />
-      <div className='page-content'>
-        <h2>Check-in Form</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor='user_id'>User ID:</label>
-            <input
-              type='number'
-              id='user_id'
-              name='user_id' // เพิ่มชื่อที่ตรงกัน
-              value={userId.user_id}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type='submit'>Check In</button>
-        </form>
-        {message && <p>{message}</p>} {/* แสดงข้อความเมื่อมีการเช็คอิน */}
+      <div className='page-contentcheck'>
+        <div className='check-form-wrapper'> {/* Wrapper div for centering */}
+          <h2>Check-in Form</h2>
+          <form onSubmit={handleSubmit} className="check-form">
+            <div>
+              <label htmlFor='user_id'>User ID:</label>
+              <input
+                type='number'
+                id='user_id'
+                name='user_id'
+                value={userId.user_id}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <button type='submit'>Check In</button>
+          </form>
+          {message && <p className="check-message">{message}</p>}
+        </div>
       </div>
       <Footer />
     </div>

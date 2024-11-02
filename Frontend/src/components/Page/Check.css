@@ -1,0 +1,61 @@
+.page-contentcheck{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Adjusts the minimum height to vertically center within the view */
+    padding: 20px;
+  }
+  
+  .check-form-wrapper {
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    background-color: #f9f9f9; /* Light background for form section */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .check-form h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .check-form label {
+    display: block;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  
+  .check-form input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .check-form button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .check-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .check-message {
+    margin-top: 16px;
+    font-size: 14px;
+    color: green; /* Color for success messages */
+  }
+  
