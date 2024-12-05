@@ -51,7 +51,7 @@ const Shop = () => {
               <div key={menu.id} className={`menu-item ${index % 3 === 0 ? "new-row" : ""}`}>
                 <img src={`http://localhost:8000/images/${menu.filename}`} alt={menu.name} />
                 <h3>{menu.name}</h3>
-                <p>Price: ${menu.price}</p>
+                <p>Price: {menu.price} Bath</p>
                 <p>Points: {menu.pointvalue}</p>
                 <button onClick={() => addToCart(menu)}>Add</button>
               </div>
