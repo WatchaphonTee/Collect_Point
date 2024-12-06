@@ -3,7 +3,7 @@ const path = require("path");
 const express = require("express");
 const easyinvoice = require("easyinvoice");
 const router = express.Router();
-const { Orderdetail, Orderinvoice, Membership } = require("../models/associations");
+const { User,Orderdetail, Orderinvoice, Membership } = require("../models/associations");
 
 // Order from cart
 router.post("/", async (req, res) => {
@@ -92,5 +92,7 @@ router.post("/", async (req, res) => {
         return res.status(500).json({ message: "Something went wrong" });
     }
 });
+
+
 
 module.exports = router;

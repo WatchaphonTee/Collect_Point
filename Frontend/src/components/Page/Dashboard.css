@@ -1,0 +1,57 @@
+/* Dashboard.css */
+
+/* Page container for the main content */
+.dashboard .page-content {
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  /* Dashboard title styling */
+  .dashboard .page-content h1 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Customer data table styling */
+  .dashboard .customer-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Table header styling */
+  .dashboard .customer-table th {
+    background-color: #4CAF50;
+    color: white;
+    text-align: left;
+    padding: 10px;
+  }
+  
+  /* Table row styling */
+  .dashboard .customer-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+  }
+  
+  /* Alternating row colors */
+  .dashboard .customer-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Hover effect for rows */
+  .dashboard .customer-table tr:hover {
+    background-color: #e0f7fa;
+  }
+  
+  /* Loading message styling */
+  .dashboard .loading-message {
+    font-size: 1.2em;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
