@@ -67,7 +67,7 @@ router.post("/cart", async (req, res) => {
             name: menuItem.name,
             price: menuItem.price,
             pointvalue: menuItem.pointvalue,
-            quantity: 1 // กำหนดจำนวนเริ่มต้นเป็น 1
+            quantity: 1 
         });
 
         return res.status(200).json({ message: "Item added to cart successfully" });

@@ -12,13 +12,14 @@ const Orderinvoice = sequelize.define("orderinvoice",{
         autoIncrement:true,
         allowNull:false,
     },
-    Orderdetail_id:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-        references:{
-            model:Orderdetail,
-            key:"id",
-        }
+    Orderdetail_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: Orderdetail,
+            key: "id",
+        },
+        onDelete: "CASCADE", // เพิ่ม Cascade Deletion
     },
     membership_id:{
         type:Sequelize.INTEGER,
@@ -53,7 +54,7 @@ const Orderinvoice = sequelize.define("orderinvoice",{
         allowNull:false,
     },
 
-    
+
 });
 (async ()=>{
     await Orderinvoice.sync({force:false});

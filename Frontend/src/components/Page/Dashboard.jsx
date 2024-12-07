@@ -40,14 +40,14 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {customerData.map((customer) => (
-                <tr key={customer.id}>
-                  <td>{customer.id}</td>
-                  <td>{customer.firstname}</td>
-                  <td>{customer.totalpoint}</td>
-                </tr>
-              ))}
-            </tbody>
+  {customerData.map((customer) => (
+    <tr key={customer.id}>
+      <td>{customer.id}</td>
+      <td>{customer.firstname}</td>
+      <td>{customer.total_points || 0}</td> {/* แสดงคะแนนรวม */}
+    </tr>
+  ))}
+</tbody>
           </table>
         )}
       </div>

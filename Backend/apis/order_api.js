@@ -3,7 +3,7 @@ const path = require("path");
 const express = require("express");
 const easyinvoice = require("easyinvoice");
 const router = express.Router();
-const { Orderdetail, Orderinvoice, Membership, Menu } = require("../models/associations");
+const { Orderdetail, Orderinvoice, Points, Membership, Menu } = require("../models/associations");
 
 // Order from cart
 router.post("/", async (req, res) => {
@@ -16,45 +16,25 @@ router.post("/", async (req, res) => {
             return res.status(400).json({ message: "Total price and total points are required." });
         }
 
-        // ค้นหา Orderdetail ล่าสุด
-        const lastOrderDetail = await Orderdetail.findOne({
-            order: [['id', 'DESC']] // หา Orderdetail ล่าสุด
+        // สร้าง Orderdetail ใหม่เสมอ
+        const orderDetail = await Orderdetail.create({
+            timestamp: timestamp,
+            total_price: total_price,
+            total_point: total_point,
+            membership_id: membership_id,
+            user_id: user_id,
+            order_count: 1 // เริ่มนับจาก 1
         });
 
-        let orderDetail;
+        // สร้างข้อมูลในตาราง Points
+        const points = await Points.create({
+            orderdetail_id: orderDetail.id,
+            points_earned: total_point,
+            membership_id: membership_id,
+        });
+        console.log("Points Added:", points);
 
-        // หากไม่มี Orderdetail หรือจำนวน Orderdetail ถึง 60 แล้ว
-        if (!lastOrderDetail || lastOrderDetail.order_count >= 60) {
-            // สร้าง Orderdetail ใหม่
-            orderDetail = await Orderdetail.create({
-                timestamp: timestamp,
-                total_price: total_price,
-                total_point: total_point,
-                order_count: 1 // เริ่มนับจาก 1
-            });
-        } else {
-            // หากมี Orderdetail ล่าสุดและน้อยกว่า 60
-            orderDetail = lastOrderDetail;
-            orderDetail.order_count += 1; // เพิ่มจำนวนออร์เดอร์
-            orderDetail.total_price += total_price; // รวม total_price
-            orderDetail.total_point += total_point; // รวม total_point
-            await orderDetail.save(); // บันทึกการเปลี่ยนแปลง
-        }
-
-        // Update membership points if membership_id is provided
-        if (membership_id) {
-            const membership = await Membership.findByPk(membership_id);
-            if (membership) {
-                console.log("Membership found:", membership); // Debugging line
-                membership.totalpoint += total_point; // Update totalpoint
-                await membership.save(); // Save the changes
-                console.log("Updated total points:", membership.totalpoint); // Debugging line
-            } else {
-                console.log("Membership not found for ID:", membership_id); // Debugging line
-            }
-        }
-
-        // Save each record of the ordered items to the database
+        // บันทึกรายการสั่งซื้อใน Orderinvoice
         const orderItems = await Promise.all(items.map(item => {
             return Orderinvoice.create({
                 Orderdetail_id: orderDetail.id,
@@ -93,7 +73,9 @@ router.post("/", async (req, res) => {
             },
             information: {
                 number: orderDetail.id,
-                date: timestamp.toISOString().split("T")[0]
+                date: timestamp.toISOString().split("T")[0],
+                membership_id: membership_id,
+                user_id: user_id,
             },
             products: items.map(item => {
                 const menu = menuMap[item.menu_id];
@@ -103,7 +85,7 @@ router.post("/", async (req, res) => {
                     price: item.price
                 }
             }),
-            bottomNotice: `THANK YOU\nTotal Points Earned: ${total_point}`,
+            bottomNotice: `THANK YOU\nTotal Points Earned: ${total_point}\nMembership ID: ${membership_id}\nUser ID: ${user_id}`,
             settings: {
                 currency: "THB",
                 locale: "th-TH",

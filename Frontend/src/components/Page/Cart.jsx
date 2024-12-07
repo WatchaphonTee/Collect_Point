@@ -3,8 +3,8 @@ import './Add.css';
 import axios from 'axios';
 
 const Cart = ({ cartItems, setCartItems }) => {
-  const [employeeId, setEmployeeId] = useState('');
-  const [customerId, setCustomerId] = useState('');
+  const [userId, setUserId] = useState(''); // Changed from employeeId
+  const [membershipId, setMembershipId] = useState(''); // Changed from customerId
 
   const calculateTotalPrice = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -41,8 +41,8 @@ const Cart = ({ cartItems, setCartItems }) => {
         return;
     }
 
-    if (!employeeId || !customerId) {
-        alert("Please enter both Employee ID and Customer ID.");
+    if (!userId || !membershipId) {
+        alert("Please enter both User ID and Membership ID.");
         return;
     }
 
@@ -52,23 +52,21 @@ const Cart = ({ cartItems, setCartItems }) => {
         timestamp: new Date(),
         total_price: totalPrice, // ใช้ totalPrice
         total_point: totalPoints, // ใช้ totalPoints
-        employee_id: employeeId,
-        customer_id: customerId,
+        user_id: userId, // Changed from employee_id
+        membership_id: membershipId, // Changed from customer_id
         items: cartItems.map(item => ({
             menu_id: item.id,
             quantity: item.quantity,
             price: item.price
         })),
-        membership_id: customerId,
-        user_id: employeeId
     };
 
     try {
         const response = await axios.post('http://localhost:8000/order/', orderDetails);
         alert(`Order placed successfully! `);
         setCartItems([]); // Clear the cart after successful order
-        setEmployeeId(''); // Clear the input fields
-        setCustomerId('');
+        setUserId(''); // Clear the input fields
+        setMembershipId(''); // Changed from setCustomerId
     } catch (error) {
         if (error.response) {
             console.error("Error placing order:", error.response.data);
@@ -79,7 +77,6 @@ const Cart = ({ cartItems, setCartItems }) => {
         }
     }
 };
-
 
   return (
     <div className="cart">
@@ -101,19 +98,19 @@ const Cart = ({ cartItems, setCartItems }) => {
       <p>Total Price: ${calculateTotalPrice().toFixed(2)}</p>
       <p>Total Points: {calculateTotalPoints()}</p>
 
-      {/* ฟอร์มกรอกรหัสพนักงานและรหัสลูกค้า */}
+      {/* ฟอร์มกรอกรหัสพนักงานและรหัสสมาชิก */}
       <div>
         <input
           type="text"
-          placeholder="Employee ID"
-          value={employeeId}
-          onChange={(e) => setEmployeeId(e.target.value)}
+          placeholder="User ID"
+          value={userId}
+          onChange={(e) => setUserId(e.target.value)} // Changed from setEmployeeId
         />
         <input
           type="text"
-          placeholder="Customer ID"
-          value={customerId}
-          onChange={(e) => setCustomerId(e.target.value)}
+          placeholder="Membership ID"
+          value={membershipId}
+          onChange={(e) => setMembershipId(e.target.value)} // Changed from setCustomerId
         />
       </div>
       <button onClick={handleCheckout}>Confirm Order</button> {/* ปุ่มสำหรับยืนยันการสั่งซื้อ */}
