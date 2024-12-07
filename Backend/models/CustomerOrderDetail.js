@@ -1,7 +1,9 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db_instance");
 const Membership = require("./CustomerMembership_model");
-const User = require("./SystemUser_model")
+const User = require("./SystemUser_model");
+const Menu = require("./Menu_model");
+const Orderinvoice = require("./CustomerOrderInvoice_model");
 
 const Orderdetail = sequelize.define("orderdetail", {
     id: {
@@ -10,22 +12,31 @@ const Orderdetail = sequelize.define("orderdetail", {
         autoIncrement: true,
         allowNull: false,
     },
+    orderinvoice_id: { 
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: Orderinvoice,
+            key: "id", 
+        },
+        onDelete: "CASCADE", 
+    },
     timestamp: {
         type: Sequelize.DATE,
         defaultValue: new Date().getTime(),
         allowNull: false,
     },
-    total_price: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-    },
-    total_point: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-    },
-    order_count: {
+    menu_id: {
         type: Sequelize.INTEGER,
-        defaultValue: 0, // กำหนดค่าเริ่มต้น
+        allowNull: false,
+        references: {
+            model: Menu,
+            key: "id", 
+        }
+    },
+    quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
     },
     membership_id: {
         type: Sequelize.INTEGER,
@@ -34,7 +45,7 @@ const Orderdetail = sequelize.define("orderdetail", {
             model: Membership,
             key: "id",
         },
-        onDelete: "CASCADE", // Cascade relationships
+        onDelete: "CASCADE",
     },
     user_id: {  
         type: Sequelize.INTEGER,
@@ -45,13 +56,12 @@ const Orderdetail = sequelize.define("orderdetail", {
         },
         onDelete: "CASCADE",
     },
-    
 }, {
     timestamps: false,
 });
 
 (async () => {
-    await Orderdetail.sync({ force: false });
+    await Orderdetail.sync({ force: false  });
 })();
 
 module.exports = Orderdetail;

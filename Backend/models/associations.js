@@ -9,6 +9,16 @@ const Points = require("./Points_model");
 
 // Associations
 
+// Orderdetail associations
+Orderinvoice.hasMany(Orderdetail, {
+    foreignKey: "Orderinvoice_id", // การเชื่อมโยง Orderinvoice กับหลาย Orderdetail
+    onDelete: "CASCADE", // เมื่อลบ Orderinvoice จะลบ Orderdetail ที่เกี่ยวข้อง
+});
+Orderdetail.belongsTo(Orderinvoice, {
+    foreignKey: "Orderinvoice_id", // การเชื่อมโยง Orderdetail กับ Orderinvoice
+    onDelete: "CASCADE", // ลบ Orderdetail เมื่อ Orderinvoice ถูกลบ
+});
+
 // Membership associations
 Membership.hasMany(Orderdetail, {
     foreignKey: "membership_id",
@@ -18,22 +28,13 @@ Orderdetail.belongsTo(Membership, {
     foreignKey: "membership_id",
 });
 
-Membership.hasMany(Orderinvoice, {
-    foreignKey: "membership_id",
-    onDelete: "CASCADE", // ลบ Membership จะลบ Orderinvoice
+// User associations
+User.hasMany(Orderdetail, { 
+    foreignKey: "user_id",
+    onDelete: "CASCADE", // ลบ User จะลบ Orderdetail
 });
-Orderinvoice.belongsTo(Membership, {
-    foreignKey: "membership_id",
-});
-
-// Orderdetail associations
-Orderdetail.hasMany(Orderinvoice, {
-    foreignKey: "Orderdetail_id",
-    onDelete: "CASCADE", // หากลบ Orderdetail จะลบ Orderinvoice ด้วย
-});
-
-Orderinvoice.belongsTo(Orderdetail, {
-    foreignKey: "Orderdetail_id",
+Orderdetail.belongsTo(User, { 
+    foreignKey: "user_id", 
 });
 
 // Points associations
@@ -43,6 +44,14 @@ Membership.hasMany(Points, {
 });
 Points.belongsTo(Membership, { 
     foreignKey: 'membership_id' 
+});
+
+Orderinvoice.hasMany(Points, { 
+    foreignKey: 'orderinvoice_id',
+    onDelete: "CASCADE", // หากลบ Orderinvoice จะลบ Points ด้วย
+});
+Points.belongsTo(Orderinvoice, { 
+    foreignKey: 'orderinvoice_id' 
 });
 
 // Attendance associations
@@ -65,11 +74,11 @@ Membership.belongsTo(Position, {
 });
 
 // Menu associations
-Menu.hasMany(Orderinvoice, { 
+Menu.hasMany(Orderdetail, { 
     foreignKey: 'menu_id',
     onDelete: "CASCADE" // หากลบ Menu จะลบ Orderinvoice ที่เชื่อมโยงกับมัน
 });
-Orderinvoice.belongsTo(Menu, { 
+Orderdetail.belongsTo(Menu, { 
     foreignKey: 'menu_id' 
 });
 

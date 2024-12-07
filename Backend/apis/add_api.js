@@ -51,16 +51,17 @@ router.post('/adduser',async(req,res)=>{
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         // กำหนดเส้นทางไปยังโฟลเดอร์ uploads/images
-        cb(null, path.join(__dirname, '../uploads/images/')); // ใช้ __dirname เพื่อระบุโฟลเดอร์ปัจจุบัน
+        cb(null, path.join(__dirname, '../uploads/images/')); 
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname); // ใช้ชื่อไฟล์เดิม
+        cb(null, file.originalname); 
     }
 });
 
 const upload = multer({ storage });
 
-router.post('/addmenu', upload.single('filename'), async (req, res) => {
+
+router.post('/menu', upload.single('filename'), async (req, res) => {
     try {
         const { name, price, type, pointvalue } = req.body;
         const newMenu = await Menu.create({
@@ -68,7 +69,7 @@ router.post('/addmenu', upload.single('filename'), async (req, res) => {
             price,
             type,
             pointvalue,
-            filename: req.file.filename // ชื่อไฟล์ที่ถูกอัปโหลด
+            filename: req.file.filename 
         });
 
         res.status(201).json({ message: 'Menu added successfully', newMenu });
@@ -77,7 +78,7 @@ router.post('/addmenu', upload.single('filename'), async (req, res) => {
     }
 });
 
-//ดึงข้อมูล ตำแหน่งไปใช้
+//ดึงข้อมูลตำแหน่งไปใช้ตรวจสอบในหน้า สมัครพนักงาน
 router.get('/position',async(req,res)=>{
     try{
         const positions = await Position.findAll();

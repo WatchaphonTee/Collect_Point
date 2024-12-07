@@ -1,63 +1,47 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db_instance");
 const Membership = require("./CustomerMembership_model");
-const Menu = require("./Menu_model");
 const User = require("./SystemUser_model");
-const Orderdetail = require("./CustomerOrderDetail");
 
-const Orderinvoice = sequelize.define("orderinvoice",{
-    id:{
-        type:Sequelize.INTEGER,
-        primaryKey:true,
-        autoIncrement:true,
-        allowNull:false,
+const Orderinvoice = sequelize.define("orderinvoice", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
     },
-    Orderdetail_id: {
+    membership_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: Orderdetail,
-            key: "id",
+            model: Membership,
+            key: "id", 
         },
-        onDelete: "CASCADE", // เพิ่ม Cascade Deletion
+        onDelete: "CASCADE", 
     },
-    membership_id:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-        references:{
-            model : Membership,
-            key: "id"
-        }
+    user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: User,
+            key: "id", 
+        },
+        onDelete: "CASCADE", 
     },
-    user_id:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-        references:{
-            model : User,
-            key: "id",
-        }
+    total_price: {
+        type: Sequelize.DECIMAL(10, 2), 
+        allowNull: false,
     },
-    menu_id:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-        references:{
-            model: Menu,
-            key: "id",
-        }
+    total_point: {
+        type: Sequelize.INTEGER, 
+        allowNull: false,
     },
-    quantity:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-    },
-    total_price:{
-        type:Sequelize.FLOAT,
-        allowNull:false,
-    },
-
-
+}, {
+    timestamps: true, 
 });
-(async ()=>{
-    await Orderinvoice.sync({force:false});
+
+(async () => {
+    await Orderinvoice.sync({  force: false }); 
 })();
 
-module.exports=Orderinvoice;
+module.exports = Orderinvoice;
