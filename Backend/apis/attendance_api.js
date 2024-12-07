@@ -3,8 +3,9 @@ const router = express.Router();
 
 const {Attendance,User} =require("../models/associations");
 
+//ตรวจเวลาเข้างาน
 router.post("/checkin", async (req, res) => {
-    const { user_id } = req.body; // Assuming the user ID is sent in the request body
+    const { user_id } = req.body; 
     try {
         const attendance = await Attendance.create({ user_id });
         return res.status(201).json(attendance);

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Menu } = require("../models/associations");
 
-//Meals SidesDrinks SnackSweet
+//ดึงเมนูในหมวด Meals SidesDrinks SnackSweet ออกไปแสดง
 router.get("/meals",async(req,res)=>{
     try{
         const menus = await Menu.findAll({
@@ -48,11 +48,11 @@ router.get("/SnackSweet",async(req,res)=>{
     }
 });
 
+//ตะกร้า
 router.post("/cart", async (req, res) => {
     try {
         const { id } = req.body;
 
-        // หารายการเมนูตาม id
         const menuItem = await Menu.findOne({
             where: { id },
             attributes: ["id", "name", "price", "pointvalue", "filename"]
@@ -62,12 +62,12 @@ router.post("/cart", async (req, res) => {
             return res.status(404).json({ message: "Menu item not found" });
         }
 
-        // เพิ่มเมนูไปยังตะกร้า (เพิ่ม log หรือปรับ Cart model ตามที่ต้องการ)
+        
         await Cart.create({
             name: menuItem.name,
             price: menuItem.price,
             pointvalue: menuItem.pointvalue,
-            quantity: 1 // กำหนดจำนวนเริ่มต้นเป็น 1
+            quantity: 1 
         });
 
         return res.status(200).json({ message: "Item added to cart successfully" });

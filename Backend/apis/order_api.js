@@ -3,125 +3,102 @@ const path = require("path");
 const express = require("express");
 const easyinvoice = require("easyinvoice");
 const router = express.Router();
-const { Orderdetail, Orderinvoice, Membership, Menu } = require("../models/associations");
+const { Orderinvoice, Orderdetail, Points, Menu } = require("../models/associations"); 
 
-// Order from cart
-router.post("/", async (req, res) => {
+//สั่งซื้อสินค้า
+router.post('/', async (req, res) => {
+    const { timestamp, total_price, total_point, user_id, membership_id, items } = req.body;
+
     try {
-        const { items, total_price, total_point, membership_id, user_id } = req.body;
-        const timestamp = new Date();
+        const orderTimestamp = new Date(timestamp); 
 
-        // Validate the data
-        if (total_price == null || total_point == null) {
-            return res.status(400).json({ message: "Total price and total points are required." });
-        }
-
-        // ค้นหา Orderdetail ล่าสุด
-        const lastOrderDetail = await Orderdetail.findOne({
-            order: [['id', 'DESC']] // หา Orderdetail ล่าสุด
+        const orderInvoice = await Orderinvoice.create({
+            timestamp: orderTimestamp, 
+            total_price,
+            total_point,
+            user_id,
+            membership_id,
         });
 
-        let orderDetail;
+        console.log('Created OrderInvoice with ID:', orderInvoice.id);
 
-        // หากไม่มี Orderdetail หรือจำนวน Orderdetail ถึง 60 แล้ว
-        if (!lastOrderDetail || lastOrderDetail.order_count >= 60) {
-            // สร้าง Orderdetail ใหม่
-            orderDetail = await Orderdetail.create({
-                timestamp: timestamp,
-                total_price: total_price,
-                total_point: total_point,
-                order_count: 1 // เริ่มนับจาก 1
-            });
-        } else {
-            // หากมี Orderdetail ล่าสุดและน้อยกว่า 60
-            orderDetail = lastOrderDetail;
-            orderDetail.order_count += 1; // เพิ่มจำนวนออร์เดอร์
-            orderDetail.total_price += total_price; // รวม total_price
-            orderDetail.total_point += total_point; // รวม total_point
-            await orderDetail.save(); // บันทึกการเปลี่ยนแปลง
-        }
+        
+        for (const item of items) {
+            console.log('Creating Orderdetail for item:', item);
 
-        // Update membership points if membership_id is provided
-        if (membership_id) {
-            const membership = await Membership.findByPk(membership_id);
-            if (membership) {
-                console.log("Membership found:", membership); // Debugging line
-                membership.totalpoint += total_point; // Update totalpoint
-                await membership.save(); // Save the changes
-                console.log("Updated total points:", membership.totalpoint); // Debugging line
-            } else {
-                console.log("Membership not found for ID:", membership_id); // Debugging line
-            }
-        }
-
-        // Save each record of the ordered items to the database
-        const orderItems = await Promise.all(items.map(item => {
-            return Orderinvoice.create({
-                Orderdetail_id: orderDetail.id,
-                membership_id,
-                user_id,
+            await Orderdetail.create({
+                orderinvoice_id: orderInvoice.id,  
+                timestamp: orderTimestamp, 
                 menu_id: item.menu_id,
                 quantity: item.quantity,
-                total_price: item.price * item.quantity
+                membership_id,
+                user_id,
             });
-        }));
+        }
 
-        // Fetch menu names for the receipt
-        const menuIds = orderItems.map(item => item.menu_id);
+        await Points.create({
+            membership_id,
+            orderinvoice_id: orderInvoice.id,
+            points_earned: total_point,
+        });
+
+        const menuIds = items.map(item => item.menu_id);
         const menus = await Menu.findAll({
-            where: {
-                id: menuIds
-            }
+            where: { id: menuIds },
         });
 
-        const menuMap = {};
-        menus.forEach(menu => {
-            menuMap[menu.id] = menu; // Store menu objects instead of just names
-        });
+        const menuMap = menus.reduce((acc, menu) => {
+            acc[menu.id] = menu;  
+            return acc;
+        }, {});
 
-        // Generate a PDF of the receipt
         const imgPath = path.resolve(__dirname, "..", "Logo.png");
 
         const invoiceData = {
             apiKey: "free",
             mode: "development",
             images: {
-                logo: fs.readFileSync(imgPath, "base64")
+                logo: fs.readFileSync(imgPath, "base64"),
             },
             sender: {
                 company: "Collect Point",
             },
             information: {
-                number: orderDetail.id,
-                date: timestamp.toISOString().split("T")[0]
+                number: orderInvoice.id,
+                date: orderTimestamp.toISOString().split("T")[0], 
+                membership_id: membership_id,
+                user_id: user_id,
             },
             products: items.map(item => {
                 const menu = menuMap[item.menu_id];
                 return {
-                    description: `${menu.name} (${menu.type})`, // Include menu name and type
+                    description: `${menu.name} (${menu.type})`,
                     quantity: item.quantity,
-                    price: item.price
-                }
+                    price: item.price,
+                };
             }),
-            bottomNotice: `THANK YOU\nTotal Points Earned: ${total_point}`,
+            bottomNotice: `THANK YOU\nTotal Points Earned: ${total_point}\nMembership ID: ${membership_id}\nUser ID: ${user_id}`,
             settings: {
                 currency: "THB",
                 locale: "th-TH",
                 format: "A4",
                 height: "1000px",
                 width: "500px",
-                orientation: "portrait"
+                orientation: "portrait",
             },
         };
 
         const result = await easyinvoice.createInvoice(invoiceData);
-        fs.writeFileSync(path.resolve("receipts", `receipt-${orderDetail.id}.pdf`), result.pdf, "base64");
+        fs.writeFileSync(path.resolve("receipts", `receipt-${orderInvoice.id}.pdf`), result.pdf, "base64");
 
-        return res.status(201).json({ message: "The order is successful" });
-    } catch (err) {
-        console.error(err);
-        return res.status(500).json({ message: "Something went wrong" });
+        res.status(200).json({ message: 'Order placed successfully!', orderInvoiceId: orderInvoice.id });
+    } catch (error) {
+        console.error('Error processing the order:', error);
+        res.status(500).json({
+            message: error.message || 'Failed to process the order. Please try again.',
+        });
     }
 });
+
 
 module.exports = router;

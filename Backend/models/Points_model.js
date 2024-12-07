@@ -1,47 +1,43 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db_instance");
 const Membership = require("./CustomerMembership_model");
-const User = require("./SystemUser_model");
+const Orderinvoice = require("./CustomerOrderInvoice_model"); 
 
-const Orderinvoice = sequelize.define("orderinvoice", {
+const Points = sequelize.define("points", {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
     },
-    membership_id: {
+    membership_id: {  
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
             model: Membership,
-            key: "id", 
+            key: "id",
         },
-        onDelete: "CASCADE", 
+        onDelete: "CASCADE", // ลบข้อมูลเมื่อ `Membership` ถูกลบ
     },
-    user_id: {
+    orderinvoice_id: {  
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: User,
-            key: "id", 
+            model: Orderinvoice, 
+            key: "id",
         },
-        onDelete: "CASCADE", 
+        onDelete: "CASCADE",
     },
-    total_price: {
-        type: Sequelize.DECIMAL(10, 2), 
-        allowNull: false,
-    },
-    total_point: {
-        type: Sequelize.INTEGER, 
+    points_earned: {
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 }, {
-    timestamps: true, 
+    timestamps: true,
 });
 
 (async () => {
-    await Orderinvoice.sync({  force: false }); 
+    await Points.sync({  force: false });
 })();
 
-module.exports = Orderinvoice;
+module.exports = Points;

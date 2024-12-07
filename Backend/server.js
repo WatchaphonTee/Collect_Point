@@ -10,7 +10,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use("/add",require("./apis/add_api"));
-app.use("/check",require("./apis/check_api"));
 app.use("/shop",require("./apis/shop_api"));
 app.use("/order",require("./apis/order_api"));
 app.use("/show",require("./apis/show_api"));
