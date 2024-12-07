@@ -5,6 +5,7 @@ import Sidebar from '../Sidebar/Sidebar.jsx';
 import Footer from '../Footer/Footer.jsx';
 import Cart from './Cart.jsx';
 
+
 const Shop = () => {
   const [menuType, setMenuType] = useState("Meals");
   const [menus, setMenus] = useState([]);
@@ -38,27 +39,36 @@ const Shop = () => {
   return (
     <div>
       <Sidebar />
-      <div className="page-content">
-        <nav className="menu-nav">
-          <button onClick={() => setMenuType("meals")}>Meals</button>
-          <button onClick={() => setMenuType("SidesDrinks")}>Sides & Drinks</button>
-          <button onClick={() => setMenuType("SnackSweet")}>Snacks & Sweets</button>
+      <div className="page-content mt-5">
+        
+        <nav className="menu-nav gap-5">
+          <button className="custom-button "onClick={() => setMenuType("meals")}>Meals</button>
+          <button className="custom-button"onClick={() => setMenuType("SidesDrinks")}>Sides & Drinks</button>
+          <button className="custom-button"onClick={() => setMenuType("SnackSweet")}>Snacks & Sweets</button>
         </nav>
-
-        <div className="menu-display">
+        
+       
+        <div className="menu-display mt-5 ">
+        <div className="row">
           {menus.length > 0 ? (
+            
             menus.map((menu, index) => (
+              <div className="col-sm-3">
+              <div className='card ms-4 '>
               <div key={menu.id} className={`menu-item ${index % 3 === 0 ? "new-row" : ""}`}>
                 <img src={`http://localhost:8000/images/${menu.filename}`} alt={menu.name} />
                 <h3>{menu.name}</h3>
                 <p>Price: {menu.price} Bath</p>
                 <p>Points: {menu.pointvalue}</p>
-                <button onClick={() => addToCart(menu)}>Add</button>
+                <button className="add" onClick={() => addToCart(menu)}>Add</button>
+              </div>
+              </div>
               </div>
             ))
           ) : (
             <p>No items available</p>
           )}
+        </div>
         </div>
       </div>
       <Footer />
