@@ -65,24 +65,54 @@ h2 {
     padding: 20px;
     margin-right: 20px; /* เพิ่มระยะห่างระหว่างเมนูกับ Cart */
   }
+
+  .page-content{
+    position: relative;
+    margin-left: 130px;
+
+
+  }
   
   .menu-nav {
+    position: relative;
     display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
+    margin-left: 25%; 
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+    
+  }
+
+  .custom-button{
+    border-radius: 7px;
+    border-color: #ec6d71;
   }
   
   .menu-display {
+    position: relative;
     display: flex;
-    flex-wrap: wrap;
-    margin-right: 20%;
-    gap: 20px;
+    margin-top: 60px;
+    margin-left: 70px;
     justify-content: center;
+    justify-content: space-between;
+   
+   
   }
-  
+  .card{
+    position: relative;
+    border-radius: 10px;
+    border-color: black; }
+
+   .add{
+    position: relative;
+    border-radius: 10px;
+    background-color: rgb(204, 222, 184);
+    width: 100px;
+    font-family: 'Merriweather', serif;
+
+   }
+
   .menu-item {
-    width: 200px; /* ขนาดแต่ละเมนู */
+   
     text-align: center;
     border: 1px solid #ddd;
     padding: 10px;
@@ -96,18 +126,12 @@ h2 {
     object-fit: cover; /* ปรับรูปให้อยู่ในขอบเขตขนาดที่กำหนด */
     border-radius: 5px;
   }
-  
-  /* CSS สำหรับ Cart */
-  .cart {
-    width: 20%; /* กำหนดความกว้าง 20% */
-    padding: 20px;
-    border-left: 1px solid #ddd; /* ขอบซ้ายเพื่อแยก Cart ออกจากเนื้อหา */
-    background-color: #f9f9f9; /* สีพื้นหลังให้ Cart */
-    position: fixed; /* ทำให้ Cart อยู่ในตำแหน่งคงที่ */
-    right: 0; /* จัดให้อยู่ด้านขวา */
-    top: 0; /* เริ่มต้นที่ด้านบน */
-    height: 100%; /* ขยายสูงเต็มหน้าจอ */
-    overflow-y: auto; /* ให้ scroll ได้ถ้ารายการในตะกร้ามากเกินไป */
+  h3{
+    font-family: 'Merriweather', serif;
   }
+  p{
+    font-family: 'Merriweather', serif;
+  }
+  
   
   
