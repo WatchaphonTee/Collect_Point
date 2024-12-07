@@ -46,7 +46,7 @@ const Addmenu = () => {
             formData.append('pointvalue', menuData.pointvalue);
             formData.append('filename', menuData.filename); // ส่งไฟล์รูปภาพ
 
-            const response = await axios.post('http://localhost:8000/add/addmenu', formData, {
+            const response = await axios.post('http://localhost:8000/add/menu', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

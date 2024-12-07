@@ -79,4 +79,20 @@
   transition: background-color 0.3s; /* เปลี่ยนพื้นหลังเมื่อ hover */
 }
 
+/* ซ่อนเมนูย่อยเมื่อไม่ได้เปิด */
+.dropdown-menu {
+  display: none;
+  list-style-type: none;
+  padding: 0;
+}
+
+.dropdown-menu li {
+  padding-left: 20px;
+}
+
+/* แสดงเมนูย่อยเมื่อ dropdown เปิด */
+.dropdown.open .dropdown-menu {
+  display: block;
+}
+
 /*dropdown*/

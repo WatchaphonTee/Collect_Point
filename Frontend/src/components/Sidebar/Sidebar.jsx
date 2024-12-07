@@ -33,7 +33,7 @@ const Sidebar = () => {
             <TfiAlarmClock className="icon" /> <span>Check</span>
           </Link>
         </li>
-        <li className="dropdown">
+        <li className={`dropdown ${isDropdownOpen ? 'open' : ''}`}>
           <button onClick={toggleDropdown} className="sidebar-link">
             <AiFillPlusCircle className="icon" /> <span>Add    ▼</span>
           </button>
