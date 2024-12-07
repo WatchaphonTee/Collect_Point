@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Add.css';
+import './Cart.css';
 import axios from 'axios';
 
 const Cart = ({ cartItems, setCartItems }) => {
@@ -88,10 +88,15 @@ const Cart = ({ cartItems, setCartItems }) => {
         <ul>
           {cartItems.map((item) => (
             <li key={item.id}>
-              {item.name} - Quantity: {item.quantity} 
-              <button onClick={() => increaseQuantity(item)}>+</button>
-              <button onClick={() => decreaseQuantity(item)}>-</button>
-              - Price: ${(item.price * item.quantity).toFixed(2)}
+              {item.name}  Quantity: 
+              <div className='d-flex gap-2'>
+              <button className="btn btn-outline-secondary quantity-button"onClick={() => decreaseQuantity(item)}>-</button>
+              <div className="item-quantity m-0 ">{item.quantity}</div>
+              <button className="btn btn-outline-secondary quantity-button" onClick={() => increaseQuantity(item)}>+</button>
+
+              <button class= "btn btn-danger quantity-but"   onClick={() => removeFromCart(item.id)}><p >Remove</p></button>
+              </div>
+               Price: ${(item.price * item.quantity).toFixed(2)}
             </li>
           ))}
         </ul>
@@ -102,7 +107,7 @@ const Cart = ({ cartItems, setCartItems }) => {
       <p>Total Points: {calculateTotalPoints()}</p>
 
       {/* ฟอร์มกรอกรหัสพนักงานและรหัสลูกค้า */}
-      <div>
+      <div >
         <input
           type="text"
           placeholder="Employee ID"
@@ -115,8 +120,8 @@ const Cart = ({ cartItems, setCartItems }) => {
           value={customerId}
           onChange={(e) => setCustomerId(e.target.value)}
         />
-      </div>
-      <button onClick={handleCheckout}>Confirm Order</button> {/* ปุ่มสำหรับยืนยันการสั่งซื้อ */}
+     </div >
+      <div className="Confirm"><button className="custom-button " onClick={handleCheckout}>Confirm Order</button> {/* ปุ่มสำหรับยืนยันการสั่งซื้อ */}</div>
     </div>
   );
 };

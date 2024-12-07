@@ -1,0 +1,42 @@
+/* CSS สำหรับ Cart */
+.cart {
+
+    width: 20%; /* กำหนดความกว้าง 20% */
+    padding: 10px;
+    border-left: 1px solid #ddd; /* ขอบซ้ายเพื่อแยก Cart ออกจากเนื้อหา */
+    border-radius: 10px;
+    background-color: #DAA3A3; /* สีพื้นหลังให้ Cart */
+    position: fixed; /* ทำให้ Cart อยู่ในตำแหน่งคงที่ */
+    right: 0; /* จัดให้อยู่ด้านขวา */
+    top: 0; /* เริ่มต้นที่ด้านบน */
+    height: 100%; /* ขยายสูงเต็มหน้าจอ */
+    overflow-y: auto; /* ให้ scroll ได้ถ้ารายการในตะกร้ามากเกินไป */
+    font-family: 'Merriweather', serif;
+
+    
+
+  }
+
+  .quantity-button {
+    position: relative;
+    border-radius: 10px;
+    width: 35px;
+    height: 40px;
+
+    }
+.quantity-but{
+    position: relative;
+    left: 20px;
+    border-radius: 10px;
+    height: 40px;
+}
+.Confirm{
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 60px;
+    
+}
+h2{
+    font-family: 'Merriweather', serif;
+    font-size: 40px;
+}
