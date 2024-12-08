@@ -73,15 +73,6 @@ Membership.belongsTo(Position, {
     onDelete: "SET NULL" 
 });
 
-// Menu associations
-Menu.hasMany(Orderdetail, { 
-    foreignKey: 'menu_id',
-    onDelete: "CASCADE" // หากลบ Menu จะลบ Orderinvoice ที่เชื่อมโยงกับมัน
-});
-Orderdetail.belongsTo(Menu, { 
-    foreignKey: 'menu_id' 
-});
-
 // User associations
 User.hasMany(Orderinvoice, { 
     foreignKey: 'user_id',
