@@ -58,6 +58,8 @@ h2 {
 
 .shop-container {
     display: flex; /* ใช้ flexbox เพื่อจัดระเบียบ layout */
+    margin-right: 330px;
+    margin-bottom: 50px;
   }
   
   .main-content {
@@ -69,7 +71,6 @@ h2 {
   .page-content{
     position: relative;
     margin-left: 130px;
-
 
   }
   

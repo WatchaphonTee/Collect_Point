@@ -39,6 +39,7 @@ const Shop = () => {
   return (
     <div>
       <Sidebar />
+      <div className='shop-container'>
       <div className="page-content mt-5">
         
         <nav className="menu-nav gap-5">
@@ -68,6 +69,7 @@ const Shop = () => {
           ) : (
             <p>No items available</p>
           )}
+        </div>
         </div>
         </div>
       </div>
