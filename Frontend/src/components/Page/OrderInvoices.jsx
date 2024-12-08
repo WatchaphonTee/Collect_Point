@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import './Del.css'
+import Sidebar from '../Sidebar/Sidebar.jsx';
 
 const OrderInvoices = () => {
     const [orderInvoices, setOrderInvoices] = useState([]);
@@ -41,9 +43,10 @@ const OrderInvoices = () => {
     return (
         <div>
             <h1>Order Invoices</h1>
-            <table>
+            <Sidebar />
+            <table className="Table">
                 <thead>
-                    <tr>
+                    <tr >
                         <th>OrderId</th>
                         <th>Membership ID</th>
                         <th>User ID</th>
@@ -63,7 +66,8 @@ const OrderInvoices = () => {
                                 <td>{invoice.total_point}</td>
                                 <td>
                                     {/* Delete button that calls handleDelete on click */}
-                                    <button onClick={() => handleDelete(invoice.id)}>Delete</button>
+                                    <button class= "btn btn-danger quantity-but" onClick={() => handleDelete(invoice.id)}>Delete</button>
+                                    
                                 </td>
                             </tr>
                         ))

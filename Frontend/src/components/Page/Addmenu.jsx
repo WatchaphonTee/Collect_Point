@@ -129,7 +129,7 @@ const Addmenu = () => {
                                 required 
                             />
                         </div>
-                        <button type="submit" className="submit-button">เพิ่มเมนู</button>
+                        <button  type="submit" className="submit-button" style={{width:'70%'}}>เพิ่มเมนู</button>
                     </form>
                     {message && <p className="message">{message}</p>}
                 </div>

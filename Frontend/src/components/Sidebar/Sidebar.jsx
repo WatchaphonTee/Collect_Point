@@ -3,14 +3,23 @@ import { Link } from 'react-router-dom';
 import './Sidebar.css'; // ใส่ไฟล์ CSS สำหรับการจัดสไตล์
 import { FaUser, FaUserTie, FaCoffee, FaTachometerAlt } from 'react-icons/fa'; // Import ไอคอนจาก react-icons
 import { AiOutlineShoppingCart ,AiFillPlusCircle} from "react-icons/ai";
+import { HiArchiveBoxXMark } from "react-icons/hi2";
 import { TfiAlarmClock } from "react-icons/tfi";
+import { FaFileInvoiceDollar } from "react-icons/fa6";
 import burler from '../../img/burler.png'
 
 const Sidebar = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // สถานะสำหรับ dropdown
+  const [isDropdownOpenadd, setIsDropdownOpenadd] = useState(false); // สถานะสำหรับ dropdown
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const toggleDropdownadd= () => {
+    setIsDropdownOpenadd(!isDropdownOpenadd);
+
+  };
+  const [isDropdownOpendel, setIsDropdownOpendel] = useState(false); // สถานะสำหรับ dropdown
+
+  const toggleDropdowndel = () => {
+    setIsDropdownOpendel(!isDropdownOpendel);
+    
   };
 
   return (
@@ -33,11 +42,11 @@ const Sidebar = () => {
             <TfiAlarmClock className="icon" /> <span>Check</span>
           </Link>
         </li>
-        <li className={`dropdown ${isDropdownOpen ? 'open' : ''}`}>
-          <button onClick={toggleDropdown} className="sidebar-link">
+        <li className={`dropdown ${isDropdownOpenadd ? 'open' : ''}`}>
+          <button onClick={toggleDropdownadd} className="sidebar-link">
             <AiFillPlusCircle className="icon" /> <span>Add    ▼</span>
           </button>
-          {isDropdownOpen && (
+          {isDropdownOpenadd && (
             <ul className="dropdown-menu">
               <li>
                 <Link to="/addmember" className="sidebar-link">
@@ -54,6 +63,25 @@ const Sidebar = () => {
                   <FaCoffee className="icon" /> <span>Menu</span>
                 </Link>
               </li>
+            </ul>
+          )}
+        </li>
+        <li className={`dropdown ${isDropdownOpendel ? 'open' : ''}`}>
+          <button onClick={toggleDropdowndel} className="sidebar-link">
+            <HiArchiveBoxXMark className="icon" /> <span>Delete   ▼</span>
+          </button>
+          {isDropdownOpendel && (
+            <ul className="dropdown-menu">
+              <li>
+                <Link to="/delinvoice" className="sidebar-link">
+                  <FaFileInvoiceDollar className="icon" /> <span>delinvoice</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/delmenu" className="sidebar-link">
+                  <FaCoffee className="icon" /> <span>delmenu</span>
+                </Link>
+              </li>     
             </ul>
           )}
         </li>
