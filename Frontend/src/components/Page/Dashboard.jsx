@@ -3,19 +3,26 @@ import Sidebar from '../Sidebar/Sidebar.jsx';
 import Footer from '../Footer/Footer.jsx';
 import axios from 'axios';
 import './Dashboard.css';
+import SalesYearChart from './SalesYearChart.jsx';
+import SalesBarChart from './SalesBarChart.jsx';
 
 const Dashboard = () => {
   const [customerData, setCustomerData] = useState([]);
+  const [topSellingData, setTopSellingData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/show/customer-points');
-        setCustomerData(response.data);
+        const customerResponse = await axios.get('http://localhost:8000/show/customer-points');
+        setCustomerData(customerResponse.data);
+
+        const salesResponse = await axios.get('http://localhost:8000/show/bestsalesevenday');
+        setTopSellingData(salesResponse.data.data); // Assuming data is returned as 'data' in the response
+
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching customer data:", error);
+        console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
@@ -26,29 +33,65 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <Sidebar />
+      {/* Wrapping SalesBarChart and SalesYearChart with a container div */}
       <div className="page-content">
+      
         <h1>Dashboard</h1>
+        <SalesBarChart />
+        <SalesYearChart />
+
         {loading ? (
           <p className="loading-message">Loading data...</p>
         ) : (
-          <table className="customer-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Total Points</th>
-              </tr>
-            </thead>
-            <tbody>
-  {customerData.map((customer) => (
-    <tr key={customer.id}>
-      <td>{customer.id}</td>
-      <td>{customer.firstname}</td>
-      <td>{customer.total_points || 0}</td> {/* แสดงคะแนนรวม */}
-    </tr>
-  ))}
-</tbody>
-          </table>
+          <>
+            {/* Top 5 Best-Selling Items Section */}
+            <h1>Top 5 Best-Selling Items (Last 7 Days)</h1>
+            {topSellingData.length > 0 ? (
+              <table className="customer-table">
+                <thead>
+                  <tr>
+                    <th>Menu Item</th>
+                    <th>Quantity Sold</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {topSellingData.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.menu.name}</td> {/* Corrected to access item.menu.name */}
+                      <td>{item.total_quantity}</td> {/* Show total quantity sold */}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No sales data available</p>
+            )}
+
+            {/* Customer Data Section */}
+            <h1>Customer Data</h1>
+            {customerData.length > 0 ? (
+              <table className="customer-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Total Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {customerData.map((customer) => (
+                    <tr key={customer.id}>
+                      <td>{customer.id}</td>
+                      <td>{customer.firstname}</td>
+                      <td>{customer.total_points || 0}</td> {/* Show total points */}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No customer data available</p>
+            )}
+          </>
         )}
       </div>
       <Footer />

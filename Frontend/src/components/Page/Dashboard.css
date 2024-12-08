@@ -3,8 +3,9 @@
 /* Page container for the main content */
 .dashboard .page-content {
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     min-height: 100vh;
+    margin-bottom: 40px;
   }
   
   /* Dashboard title styling */
@@ -57,4 +58,4 @@
     text-align: center;
     margin-top: 20px;
   }
-  
+

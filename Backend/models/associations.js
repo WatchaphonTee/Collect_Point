@@ -82,6 +82,15 @@ Orderinvoice.belongsTo(User, {
     foreignKey: 'user_id' 
 });
 
+Menu.hasMany(Orderdetail,{
+    foreignKey: 'menu_id',
+    onDelete: "NO ACTION",
+});
+
+Orderdetail.belongsTo(Menu,{
+    foreignKey: 'menu_id'
+});
+
 (async () => {
     await Menu.sync({ force: false });
     //await Orderdetail.sync({ alter: true }); // ใช้ alter เพื่ออัปเดตโครงสร้างตาราง
