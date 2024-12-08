@@ -96,7 +96,7 @@ const SalesYearChart = () => {
 
     return (
         <div>
-            <h2>Sales Dashboard (Last 12 Months)</h2>
+            
             {chartData ? (
                 <Bar data={chartData} options={options} />
             ) : (

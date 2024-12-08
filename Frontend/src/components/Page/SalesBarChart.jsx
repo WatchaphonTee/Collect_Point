@@ -86,7 +86,7 @@ const SalesBarChart = () => {
 
     return (
         <div>
-            <h2>Sales Dashboard</h2>
+            
             <div className="chart-container">
                 {chartData ? <Bar data={chartData} options={options} /> : <p>Loading chart...</p>}
             </div>

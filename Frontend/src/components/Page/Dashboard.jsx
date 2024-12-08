@@ -35,16 +35,17 @@ const Dashboard = () => {
       <Sidebar />
       {/* Wrapping SalesBarChart and SalesYearChart with a container div */}
       <div className="page-content">
-      <div className="chart-container">
+      
+        <h1>Dashboard</h1>
         <SalesBarChart />
         <SalesYearChart />
-      </div>
+
         {loading ? (
           <p className="loading-message">Loading data...</p>
         ) : (
           <>
             {/* Top 5 Best-Selling Items Section */}
-            <h2>Top 5 Best-Selling Items (Last 7 Days)</h2>
+            <h1>Top 5 Best-Selling Items (Last 7 Days)</h1>
             {topSellingData.length > 0 ? (
               <table className="customer-table">
                 <thead>
@@ -67,7 +68,7 @@ const Dashboard = () => {
             )}
 
             {/* Customer Data Section */}
-            <h2>Customer Data</h2>
+            <h1>Customer Data</h1>
             {customerData.length > 0 ? (
               <table className="customer-table">
                 <thead>
