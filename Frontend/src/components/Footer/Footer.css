@@ -1,6 +1,6 @@
 /* Footer.css */
 .footer {
-    position: fixed;
+    position: relative;
     bottom: 0;
     width: calc(100% ); /* ปรับขนาดให้เต็มพื้นที่ที่เหลือจาก Sidebar */
     background-color: #e0e0e0d3;

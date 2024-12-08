@@ -139,7 +139,7 @@ router.get("/bestsalesevenday",async (req,res)=>{
                     attributes: ['name','type']
                 }
             ],
-            group: ['menu_id'],
+            group: ['menu_id',],
             order: [[sequelize.fn("DATE",sequelize.col("timestamp")),"DESC"]],
             limit:5
         });
