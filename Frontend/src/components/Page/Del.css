@@ -1,0 +1,38 @@
+Table{
+    margin-left: 160px;
+    width: 80%;
+    border: 2px solid black;
+    border-collapse: collapse;
+ 
+}
+th{
+    background-color: #c7848e;
+    padding: 10px;
+}
+h1{
+    text-align: center;
+    margin-top: 40px;
+}
+.menu-itemm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.menu-itemm img{
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover; 
+    border-radius: 5px;
+    position: center; 
+  } 
+ 
+.menu-itemm button {
+    margin-right: 40px;
+}
+.menudel{
+    margin-right: 40px;
+}
+.menurum{
+    padding-left: 40px;
+}

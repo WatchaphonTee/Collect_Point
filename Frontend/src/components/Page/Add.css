@@ -76,7 +76,7 @@ h2 {
   .menu-nav {
     position: relative;
     display: flex;
-    margin-left: 25%; 
+    margin-left: 20%; 
     font-family: 'Merriweather', serif;
     font-size: 18px;
     
@@ -91,7 +91,6 @@ h2 {
     position: relative;
     display: flex;
     margin-top: 60px;
-    margin-left: 70px;
     justify-content: center;
     justify-content: space-between;
    
@@ -131,6 +130,18 @@ h2 {
   }
   p{
     font-family: 'Merriweather', serif;
+  }
+  .add-staff-form button{
+    background-color: #39ad60;
+    color: #0c0c0c;
+  }
+  .add-menu-form button{
+    background-color: #39ad60;
+    color: #0c0c0c;
+    margin-left: 10%;
+  }
+  .add-menu-form h2{
+    margin-top: 20px;
   }
   
   
