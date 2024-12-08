@@ -32,7 +32,8 @@ const Orderdetail = sequelize.define("orderdetail", {
         references: {
             model: Menu,
             key: "id", 
-        }
+        },
+        onDelete: "NO ACTION",
     },
     quantity: {
         type: Sequelize.INTEGER,

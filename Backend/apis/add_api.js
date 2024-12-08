@@ -1,3 +1,4 @@
+const fs = require('fs');  // เพิ่มบรรทัดนี้ที่ส่วนบนของไฟล์
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
@@ -60,6 +61,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+router.get('/menu',async(req,res)=>{
+    try{
+        const menus = await Menu.findAll();
+        res.status(200).json({data:menus});
+    }catch(error){
+        console.error('Error fetching menus',error);
+        res.status(500).json({message:'Failed to retrieve',error:error.message});
+    }
+});
 
 router.post('/menu', upload.single('filename'), async (req, res) => {
     try {
@@ -77,6 +87,40 @@ router.post('/menu', upload.single('filename'), async (req, res) => {
         res.status(500).json({ message: 'Error creating menu', error });
     }
 });
+
+router.delete('/menu/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // ค้นหาข้อมูลเมนูจากฐานข้อมูล
+        const menu = await Menu.findByPk(id);
+
+        if (!menu) {
+            return res.status(404).json({ message: 'Menu not found' });
+        }
+
+        // ลบไฟล์ภาพที่เกี่ยวข้องกับเมนู
+        const imagePath = path.join(__dirname, '../uploads/images/', menu.filename);
+        
+        fs.unlink(imagePath, (err) => {
+            if (err) {
+                console.error('Error deleting image file', err);
+                return res.status(500).json({ message: 'Error deleting image file', error: err.message });
+            }
+            
+            console.log('Image deleted successfully');
+        });
+
+        // ลบเมนูจากฐานข้อมูล
+        await menu.destroy();
+
+        res.status(200).json({ message: 'Menu deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting menu', error);
+        res.status(500).json({ message: 'Error deleting menu', error: error.message });
+    }
+});
+
 
 //ดึงข้อมูลตำแหน่งไปใช้ตรวจสอบในหน้า สมัครพนักงาน
 router.get('/position',async(req,res)=>{
