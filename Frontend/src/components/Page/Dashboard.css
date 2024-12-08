@@ -16,11 +16,12 @@
   
   /* Customer data table styling */
   .dashboard .customer-table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
+    margin-left: 50px;
     margin-top: 20px;
     background-color: #ffffff;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(221, 98, 98, 0.1);
     
   }
 
@@ -30,7 +31,7 @@
     color: rgb(12, 12, 12);
     text-align: left;
     padding: 10px;
-    text-align: center;
+    
   }
   
   /* Table row styling */
