@@ -49,13 +49,13 @@ const Shop = () => {
         </nav>
         
        
-        <div className="menu-display mt-5 ">
+        <div className="menu-display  ">
         <div className="row">
           {menus.length > 0 ? (
             
             menus.map((menu, index) => (
-              <div className="col-sm-3">
-              <div className='card ms-4 '>
+              
+              <div className='card'>
               <div key={menu.id} className={`menu-item ${index % 3 === 0 ? "new-row" : ""}`}>
                 <img src={`http://localhost:8000/images/${menu.filename}`} alt={menu.name} />
                 <h3>{menu.name}</h3>
@@ -64,7 +64,7 @@ const Shop = () => {
                 <button className="add" onClick={() => addToCart(menu)}>Add</button>
               </div>
               </div>
-              </div>
+
             ))
           ) : (
             <p>No items available</p>
