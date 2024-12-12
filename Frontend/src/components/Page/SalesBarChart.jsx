@@ -10,20 +10,20 @@ import {
     Legend,
 } from "chart.js";
 
-// ลงทะเบียน Modules
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const SalesBarChart = () => {
     const [chartData, setChartData] = useState(null);
 
     useEffect(() => {
-        // ฟังก์ชันสำหรับดึงข้อมูลจาก API
+        
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:8000/show/salesevenday"); // URL ของ API
+                const response = await fetch("http://localhost:8000/show/salesevenday"); 
                 const data = await response.json();
                 if (data.data) {
-                    // สร้าง array ของวันที่ย้อนหลัง 7 วัน
+                    
                     const currentDay = new Date();
                     const labels = [];
                     const sales = [];
@@ -31,16 +31,16 @@ const SalesBarChart = () => {
                     for (let i = 6; i >= 0; i--) {
                         const date = new Date();
                         date.setDate(currentDay.getDate() - i);
-                        const formattedDate = date.toISOString().split("T")[0]; // รูปแบบ YYYY-MM-DD
+                        const formattedDate = date.toISOString().split("T")[0]; 
 
                         labels.push(formattedDate);
 
-                        // หาค่าขายสำหรับวันที่นั้น ๆ
+                        
                         const saleData = data.data.find(item => item.sale_date === formattedDate);
                         if (saleData) {
-                            sales.push(saleData.total_price); // หากมีข้อมูลการขาย
+                            sales.push(saleData.total_price); 
                         } else {
-                            sales.push(0); // ถ้าไม่มีข้อมูลการขาย
+                            sales.push(0); 
                         }
                     }
 
@@ -65,7 +65,7 @@ const SalesBarChart = () => {
         fetchData();
     }, []);
 
-    // ตัวเลือกการแสดงผล
+    
     const options = {
         responsive: true,
         plugins: {

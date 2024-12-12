@@ -3,7 +3,7 @@ import Sidebar from '../Sidebar/Sidebar.jsx';
 import axios from 'axios';
 import '../Sidebar/Sidebar.css';
 import Footer from '../Footer/Footer.jsx';
-import './Check.css'; // Import CSS for Check component
+import './Check.css'; 
 
 const Check = () => {
   const [userId, setUserId] = useState({
@@ -47,7 +47,7 @@ const Check = () => {
     <div>
       <Sidebar />
       <div className='page-contentcheck'>
-        <div className='check-form-wrapper'> {/* Wrapper div for centering */}
+        <div className='check-form-wrapper'> 
           <h2>Check-in Form</h2>
           <form onSubmit={handleSubmit} className="check-form">
             <div>

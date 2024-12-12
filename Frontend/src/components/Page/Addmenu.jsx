@@ -27,14 +27,14 @@ const Addmenu = () => {
     const handleFileChange = (e) => {
         setMenuData({
             ...menuData,
-            filename: e.target.files[0] // Set the selected file
+            filename: e.target.files[0] 
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!menuData.name || !menuData.price || !menuData.type || !menuData.pointvalue || !menuData.filename) {
-            setMessage("กรุณากรอกข้อมูลให้ครบถ้วน"); // ใช้ setMessage แทน error()
+            setMessage("กรุณากรอกข้อมูลให้ครบถ้วน"); 
             return;
         }
 

@@ -26,7 +26,7 @@ const Cart = ({ cartItems, setCartItems }) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((i) => i.id === item.id);
       if (existingItem.quantity === 1) {
-        return prevItems.filter((i) => i.id !== item.id); // Remove item if quantity is 0
+        return prevItems.filter((i) => i.id !== item.id); 
       } else {
         return prevItems.map((i) =>
           i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i
@@ -50,10 +50,10 @@ const Cart = ({ cartItems, setCartItems }) => {
     const totalPoints = calculateTotalPoints();
     const orderDetails = {
         timestamp: new Date(),
-        total_price: totalPrice, // ใช้ totalPrice
-        total_point: totalPoints, // ใช้ totalPoints
-        user_id: userId, // Changed from employee_id
-        membership_id: membershipId, // Changed from customer_id
+        total_price: totalPrice, 
+        total_point: totalPoints, 
+        user_id: userId, 
+        membership_id: membershipId, 
         items: cartItems.map(item => ({
             menu_id: item.id,
             quantity: item.quantity,
@@ -64,9 +64,9 @@ const Cart = ({ cartItems, setCartItems }) => {
     try {
         const response = await axios.post('http://localhost:8000/order/', orderDetails);
         alert(`Order placed successfully! `);
-        setCartItems([]); // Clear the cart after successful order
-        setUserId(''); // Clear the input fields
-        setMembershipId(''); // Changed from setCustomerId
+        setCartItems([]); 
+        setUserId(''); 
+        setMembershipId(''); 
     } catch (error) {
         if (error.response) {
             console.error("Error placing order:", error.response.data);
@@ -103,22 +103,21 @@ const Cart = ({ cartItems, setCartItems }) => {
       <p>Total Price: ${calculateTotalPrice().toFixed(2)}</p>
       <p>Total Points: {calculateTotalPoints()}</p>
 
-      {/* ฟอร์มกรอกรหัสพนักงานและรหัสสมาชิก */}
       <div>
         <input
           type="text"
           placeholder="User ID"
           value={userId}
-          onChange={(e) => setUserId(e.target.value)} // Changed from setEmployeeId
+          onChange={(e) => setUserId(e.target.value)} 
         />
         <input
           type="text"
           placeholder="Membership ID"
           value={membershipId}
-          onChange={(e) => setMembershipId(e.target.value)} // Changed from setCustomerId
+          onChange={(e) => setMembershipId(e.target.value)} 
         />
      </div >
-      <div className="Confirm"><button className="custom-button " onClick={handleCheckout}>Confirm Order</button> {/* ปุ่มสำหรับยืนยันการสั่งซื้อ */}</div>
+      <div className="Confirm"><button className="custom-button " onClick={handleCheckout}>Confirm Order</button> </div>
     </div>
   );
 };

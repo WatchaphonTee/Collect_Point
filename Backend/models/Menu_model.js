@@ -35,7 +35,7 @@ const Menu = sequelize.define("menu",{
 });
 
 (async () => {
-    await Menu.sync({force:false}); //ถ้าเปิดจะทำการลบตารางข้อมูลแล้วสร้างใหม่
+    await Menu.sync({force:false}); 
 })();
 
 module.exports = Menu;

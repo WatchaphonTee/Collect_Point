@@ -17,7 +17,7 @@ const Points = sequelize.define("points", {
             model: Membership,
             key: "id",
         },
-        onDelete: "CASCADE", // ลบข้อมูลเมื่อ `Membership` ถูกลบ
+        onDelete: "CASCADE",
     },
     orderinvoice_id: {  
         type: Sequelize.INTEGER,
