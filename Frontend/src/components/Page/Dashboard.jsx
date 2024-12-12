@@ -18,7 +18,7 @@ const Dashboard = () => {
         setCustomerData(customerResponse.data);
 
         const salesResponse = await axios.get('http://localhost:8000/show/bestsalesevenday');
-        setTopSellingData(salesResponse.data.data); // Assuming data is returned as 'data' in the response
+        setTopSellingData(salesResponse.data.data); 
 
         setLoading(false);
       } catch (error) {
@@ -33,7 +33,6 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <Sidebar />
-      {/* Wrapping SalesBarChart and SalesYearChart with a container div */}
       <div className="page-content">
       
         <h1>Dashboard</h1>
@@ -44,7 +43,7 @@ const Dashboard = () => {
           <p className="loading-message">Loading data...</p>
         ) : (
           <>
-            {/* Top 5 Best-Selling Items Section */}
+            
             <h1>Top 5 Best-Selling Items (Last 7 Days)</h1>
             {topSellingData.length > 0 ? (
               <table className="customer-table">
@@ -57,8 +56,8 @@ const Dashboard = () => {
                 <tbody>
                   {topSellingData.map((item, index) => (
                     <tr key={index}>
-                      <td>{item.menu.name}</td> {/* Corrected to access item.menu.name */}
-                      <td>{item.total_quantity}</td> {/* Show total quantity sold */}
+                      <td>{item.menu.name}</td> 
+                      <td>{item.total_quantity}</td> 
                     </tr>
                   ))}
                 </tbody>
@@ -67,7 +66,7 @@ const Dashboard = () => {
               <p>No sales data available</p>
             )}
 
-            {/* Customer Data Section */}
+            
             <h1>Customer Data</h1>
             {customerData.length > 0 ? (
               <table className="customer-table">
@@ -83,7 +82,7 @@ const Dashboard = () => {
                     <tr key={customer.id}>
                       <td>{customer.id}</td>
                       <td>{customer.firstname}</td>
-                      <td>{customer.total_points || 0}</td> {/* Show total points */}
+                      <td>{customer.total_points || 0}</td> 
                     </tr>
                   ))}
                 </tbody>

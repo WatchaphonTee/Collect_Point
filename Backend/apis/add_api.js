@@ -1,4 +1,4 @@
-const fs = require('fs');  // เพิ่มบรรทัดนี้ที่ส่วนบนของไฟล์
+const fs = require('fs');  
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
@@ -92,14 +92,14 @@ router.delete('/menu/:id', async (req, res) => {
     try {
         const { id } = req.params;
 
-        // ค้นหาข้อมูลเมนูจากฐานข้อมูล
+        
         const menu = await Menu.findByPk(id);
 
         if (!menu) {
             return res.status(404).json({ message: 'Menu not found' });
         }
 
-        // ลบไฟล์ภาพที่เกี่ยวข้องกับเมนู
+        
         const imagePath = path.join(__dirname, '../uploads/images/', menu.filename);
         
         fs.unlink(imagePath, (err) => {
@@ -111,7 +111,7 @@ router.delete('/menu/:id', async (req, res) => {
             console.log('Image deleted successfully');
         });
 
-        // ลบเมนูจากฐานข้อมูล
+        
         await menu.destroy();
 
         res.status(200).json({ message: 'Menu deleted successfully' });

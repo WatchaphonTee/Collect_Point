@@ -10,40 +10,40 @@ import {
     Legend,
 } from "chart.js";
 
-// ลงทะเบียน Modules
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const SalesYearChart = () => {
     const [chartData, setChartData] = useState(null);
 
     useEffect(() => {
-        // ฟังก์ชันสำหรับดึงข้อมูลจาก API
+        
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:8000/show/salesyear"); // URL ของ API
+                const response = await fetch("http://localhost:8000/show/salesyear"); 
                 const data = await response.json();
                 if (data.data) {
-                    // สร้าง array ของเดือน
+                    
                     const labels = [];
                     const sales = [];
                     const orderCounts = [];
                     
-                    // แสดงเดือนทั้งหมดในปี (12 เดือน)
+                    
                     for (let i = 11; i >= 0; i--) {
                         const date = new Date();
                         date.setMonth(date.getMonth() - i);
-                        const formattedMonth = date.toISOString().split("T")[0].slice(0, 7); // รูปแบบ YYYY-MM
+                        const formattedMonth = date.toISOString().split("T")[0].slice(0, 7); 
 
-                        labels.push(formattedMonth); // แสดงเดือนใน labels
+                        labels.push(formattedMonth); 
 
-                        // หาค่าขายสำหรับเดือนนั้น ๆ
+                        
                         const saleData = data.data.find(item => item.sale_month === formattedMonth);
                         if (saleData) {
-                            sales.push(saleData.total_price); // หากมีข้อมูลการขาย
-                            orderCounts.push(saleData.order_count); // จำนวนการสั่งซื้อ
+                            sales.push(saleData.total_price); 
+                            orderCounts.push(saleData.order_count); 
                         } else {
-                            sales.push(0); // ถ้าไม่มีข้อมูลการขาย
-                            orderCounts.push(0); // จำนวนการสั่งซื้อเป็น 0
+                            sales.push(0); 
+                            orderCounts.push(0); 
                         }
                     }
 
@@ -75,7 +75,7 @@ const SalesYearChart = () => {
         fetchData();
     }, []);
 
-    // ตัวเลือกการแสดงผล
+    
     const options = {
         responsive: true,
         plugins: {

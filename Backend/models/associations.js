@@ -11,18 +11,18 @@ const Points = require("./Points_model");
 
 // Orderdetail associations
 Orderinvoice.hasMany(Orderdetail, {
-    foreignKey: "Orderinvoice_id", // การเชื่อมโยง Orderinvoice กับหลาย Orderdetail
-    onDelete: "CASCADE", // เมื่อลบ Orderinvoice จะลบ Orderdetail ที่เกี่ยวข้อง
+    foreignKey: "Orderinvoice_id", 
+    onDelete: "CASCADE", 
 });
 Orderdetail.belongsTo(Orderinvoice, {
-    foreignKey: "Orderinvoice_id", // การเชื่อมโยง Orderdetail กับ Orderinvoice
-    onDelete: "CASCADE", // ลบ Orderdetail เมื่อ Orderinvoice ถูกลบ
+    foreignKey: "Orderinvoice_id", 
+    onDelete: "CASCADE", 
 });
 
 // Membership associations
 Membership.hasMany(Orderdetail, {
     foreignKey: "membership_id",
-    onDelete: "CASCADE", // ลบ Membership จะลบ Orderdetail
+    onDelete: "CASCADE", 
 });
 Orderdetail.belongsTo(Membership, {
     foreignKey: "membership_id",
@@ -31,7 +31,7 @@ Orderdetail.belongsTo(Membership, {
 // User associations
 User.hasMany(Orderdetail, { 
     foreignKey: "user_id",
-    onDelete: "CASCADE", // ลบ User จะลบ Orderdetail
+    onDelete: "CASCADE", 
 });
 Orderdetail.belongsTo(User, { 
     foreignKey: "user_id", 
@@ -40,7 +40,7 @@ Orderdetail.belongsTo(User, {
 // Points associations
 Membership.hasMany(Points, { 
     foreignKey: 'membership_id',
-    onDelete: "CASCADE", // หากลบ Membership จะลบ Points ด้วย
+    onDelete: "CASCADE", 
 });
 Points.belongsTo(Membership, { 
     foreignKey: 'membership_id' 
@@ -48,7 +48,7 @@ Points.belongsTo(Membership, {
 
 Orderinvoice.hasMany(Points, { 
     foreignKey: 'orderinvoice_id',
-    onDelete: "CASCADE", // หากลบ Orderinvoice จะลบ Points ด้วย
+    onDelete: "CASCADE", 
 });
 Points.belongsTo(Orderinvoice, { 
     foreignKey: 'orderinvoice_id' 
@@ -57,7 +57,7 @@ Points.belongsTo(Orderinvoice, {
 // Attendance associations
 Attendance.belongsTo(Membership, {
     foreignKey: "membership_id",
-    onDelete: "CASCADE", // หากลบ Membership จะลบ Attendance ด้วย
+    onDelete: "CASCADE", 
 });
 Membership.hasMany(Attendance, {
     foreignKey: "membership_id",
@@ -66,7 +66,7 @@ Membership.hasMany(Attendance, {
 // Position associations
 Position.hasMany(Membership, { 
     foreignKey: 'position_id',
-    onDelete: "SET NULL", // เมื่อ Position ถูกลบ ให้ Set เป็น NULL ใน `membership.position_id`
+    onDelete: "SET NULL", 
 });
 Membership.belongsTo(Position, { 
     foreignKey: 'position_id',
@@ -76,7 +76,7 @@ Membership.belongsTo(Position, {
 // User associations
 User.hasMany(Orderinvoice, { 
     foreignKey: 'user_id',
-    onDelete: "CASCADE" // หากลบ User จะลบ Orderinvoice ที่เชื่อมโยงกับมัน
+    onDelete: "CASCADE" 
 });
 Orderinvoice.belongsTo(User, { 
     foreignKey: 'user_id' 
@@ -93,7 +93,7 @@ Orderdetail.belongsTo(Menu,{
 
 (async () => {
     await Menu.sync({ force: false });
-    //await Orderdetail.sync({ alter: true }); // ใช้ alter เพื่ออัปเดตโครงสร้างตาราง
+    //await Orderdetail.sync({ alter: true }); 
 })();
 
 module.exports = {
